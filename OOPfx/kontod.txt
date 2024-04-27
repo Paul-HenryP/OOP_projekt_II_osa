@@ -1,2 +1,0 @@
-pets 1
-kasutaja1 salasõna1
