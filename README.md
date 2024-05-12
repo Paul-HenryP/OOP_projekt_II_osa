@@ -30,6 +30,10 @@ Mängiti pangalotot: kulus 50 senti.
 
 ![image](https://github.com/Paul-HenryP/OOP_projekt_II_osa/assets/104301931/d804f548-2318-4571-aee5-dde466dfd595)
 
+Võideti pangaloto:
+
+![image](https://github.com/Paul-HenryP/OOP_projekt_II_osa/assets/104301931/d82d5d4b-48e9-456e-ba04-a36f17a3a1eb)
+
 
 Sulgedes salvestatakse iga kasutaja tehingud faili: tehingud_kasutajanimi.txt ning kontod koos paroolide faili kontod.txt vormis: kasutajanimi parool
 ![image](https://github.com/Paul-HenryP/OOP_projekt_II_osa/assets/104301931/03785ab2-f57f-4330-9c3d-d7fce3a4365b)
