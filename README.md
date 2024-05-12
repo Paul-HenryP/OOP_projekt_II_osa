@@ -40,3 +40,6 @@ Sulgedes salvestatakse iga kasutaja tehingud faili: tehingud_kasutajanimi.txt ni
 
 ![image](https://github.com/Paul-HenryP/OOP_projekt_II_osa/assets/104301931/6c07f30a-a829-4a5c-b037-0400962272b1)
 
+![image](https://github.com/Paul-HenryP/OOP_projekt_II_osa/assets/104301931/029c14b4-a918-4cfa-8e35-fd2f686170bc)
+
+
