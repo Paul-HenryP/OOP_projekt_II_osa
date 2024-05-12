@@ -18,7 +18,12 @@ Vajutati: Loo uus konto.
 
 Avaneb internetipank:
 
-![image](https://github.com/Paul-HenryP/OOP_projekt_II_osa/assets/104301931/69b0d14a-1488-4116-b87c-4ae9d4b5cd70)
+![image](https://github.com/Paul-HenryP/OOP_projekt_II_osa/assets/104301931/f9761c9f-c262-4f85-abf2-c159778c48a3)
+
+
+Tegevus: andmete vaatamine.
+
+![image](https://github.com/Paul-HenryP/OOP_projekt_II_osa/assets/104301931/70fb15f2-024f-466d-a91f-ee0e4edc66e7)
 
 Tegevus: Ülekanne.
 
