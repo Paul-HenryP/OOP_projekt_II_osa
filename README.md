@@ -24,7 +24,8 @@ Mängiti pangalotot: kulus 50 senti.
 
 Sulgeti programm.
 
-Sulgedes salvestatakse iga kasutaja tehingud faili: tehingud_kasutajanimi.txt
+Sulgedes salvestatakse iga kasutaja tehingud faili: tehingud_kasutajanimi.txt ning kontod koos paroolide faili kontod.txt vormis: kasutajanimi parool
 ![image](https://github.com/Paul-HenryP/OOP_projekt_II_osa/assets/104301931/03785ab2-f57f-4330-9c3d-d7fce3a4365b)
 
+![image](https://github.com/Paul-HenryP/OOP_projekt_II_osa/assets/104301931/6c07f30a-a829-4a5c-b037-0400962272b1)
 
