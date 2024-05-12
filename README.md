@@ -24,3 +24,6 @@ Mängiti pangalotot: kulus 50 senti.
 
 Sulgeti programm.
 
+Sulgedes salvestatakse iga kasutaja tehingud faili: tehingud_kasutajanimi.txt
+![image](https://github.com/Paul-HenryP/OOP_projekt_II_osa/assets/104301931/0c3b4af7-1d78-4728-99bd-c9dc864e3b5b)
+
