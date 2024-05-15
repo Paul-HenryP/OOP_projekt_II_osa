@@ -318,7 +318,7 @@ public class InternetiPank2Rattaga extends Application {
         Group root = new Group();
 
         // Ratta loomine
-        Group ratas = LooRatas();
+        Group ratas = looRatas();
 
         // Ratta lisamine rooti
         root.getChildren().add(ratas);
@@ -344,7 +344,7 @@ public class InternetiPank2Rattaga extends Application {
         keerutaRatast(ratas, nool, root);
     }
 
-    private Group LooRatas() {
+    private Group looRatas() {
         Group ratas = new Group();
 
         double centerX = 200;
