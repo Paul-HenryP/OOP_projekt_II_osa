@@ -1,11 +1,23 @@
-package oopfx;
+package oopfx.ryhmatoopart2;
 
+import javafx.animation.RotateTransition;
 import javafx.application.Application;
 import javafx.geometry.Insets;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Arc;
+import javafx.scene.shape.ArcType;
+import javafx.scene.shape.Line;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -298,19 +310,120 @@ public class InternetiPank2 extends Application {
         ülekandeAken.show();
     }
 
-
     private void mängiPangaloto() {
-        // Pangaloto loogika
-        int juhuslikNumber = new Random().nextInt(100);
-        if (juhuslikNumber == 0) {
-            double võidusumma = 100000.0; // Võidusumma
+        Stage primaryStage = new Stage();
+        primaryStage.setTitle("PangaLoto");
+
+        // Root grupp
+        Group root = new Group();
+
+        // Ratta loomine
+        Group ratas = LooRatas();
+
+        // Ratta lisamine rooti
+        root.getChildren().add(ratas);
+
+        // Nool
+        Line nool = new Line(200, 50, 200, 100);
+        root.getChildren().add(nool);
+        // Nupp keerutamiseks
+        Button spinButton = new Button("Keeruta ratast");
+        spinButton.setLayoutX(180);
+        spinButton.setLayoutY(350);
+        spinButton.setOnAction(event -> spinWheel(ratas, nool, root)); // ratta keerutamine
+        root.getChildren().add(spinButton);
+
+        // stseen
+        Scene scene = new Scene(root, 400, 400, Color.WHITE);
+
+
+        primaryStage.setScene(scene);
+        primaryStage.show();
+
+        // keeruta ratast
+        spinWheel(ratas, nool, root);
+    }
+
+    private Group LooRatas() {
+        Group ratas = new Group();
+
+        double centerX = 200;
+        double centerY = 200;
+        double radius = 150;
+        int Sektorid = 8; // Sektorite arv rattas
+        double angleStep = 360.0 / Sektorid; // Iga sektori nurk
+
+        // Ratta jaoks sektorite loomine
+        for (int i = 0; i < Sektorid; i++) {
+            Arc arc = new Arc(centerX, centerY, radius, radius, i * angleStep, angleStep);
+            arc.setType(ArcType.ROUND);
+            arc.setFill(i % 2 == 0 ? Color.RED : Color.GREEN); // Üle ühe punane ja roheline
+            ratas.getChildren().add(arc);
+        }
+
+        return ratas;
+    }
+
+    private void spinWheel(Group ratas, Line nool, Group root) {
+        // Suvaline number
+        Random random = new Random();
+
+        // Suvaline nurk 0 ja 360 vahel
+        double randomAngle = random.nextDouble() * 360;
+
+        // Määra kas peaks olema roheline (2 %) või punane(98 %)
+        boolean OnRoheline = random.nextDouble() <= 0.02;
+
+        // Kui on roheline, siis nurk õigeks
+        if (OnRoheline) {
+            randomAngle += 360 * (random.nextInt(2) + 6) + 360;
+        }
+        // Keerlemise animatsioon rattale
+        RotateTransition rotateTransition = new RotateTransition(Duration.seconds(3), ratas);
+        rotateTransition.setByAngle(randomAngle); // Suvalisele nurgale keeramine
+        rotateTransition.setCycleCount(1); // Mitu korda keerleb
+        rotateTransition.setOnFinished(event -> checkResult(ratas, nool, root));
+        rotateTransition.play();
+    }
+
+    private void checkResult(Group ratas, Line nool, Group root) {
+        // Arvuta sektor mis peaks olema
+        double angle = ratas.getRotate() % 360;
+        int numSectors = 8;
+        int sectorIndex = (int) Math.floor(angle / (360.0 / numSectors));
+
+        Arc sectorArc = (Arc) ratas.getChildren().get(sectorIndex);
+
+        // Määra kas mängija võitis või kaotas
+        String result;
+        if (sectorArc.getFill() == Color.GREEN) {
+            result = "Sa võitsid!";
+            // Lisa raha
+            double võidusumma = 10000.0; // Kogus
             tehingud.add("Pangaloto võit: +" + String.format("%.2f", võidusumma) + " eurot");
             uuendaSaldo(võidusumma, saldoSilt);
         } else {
-            tehingud.add("Pangaloto kaotus: -0.50 eurot");
-            uuendaSaldo(-0.50, saldoSilt);
+            result = "Sa kaotasid!";
+            // Võta raha ära
+            double kaotusSumma = 0.50; // Kaotuse summa
+            tehingud.add("Pangaloto kaotus: -" + String.format("%.2f", kaotusSumma) + " eurot");
+            uuendaSaldo(-kaotusSumma, saldoSilt);
         }
+
+        root.getChildren().removeIf(node -> node instanceof Text);
+
+        // Näita sõnumit
+        displayResult(result, (Group) ratas.getParent());
     }
+
+    private void displayResult(String result, Group root) {
+        // Näita tulemust
+        Text text = new Text(150, 350, result);
+        text.setFont(Font.font("Arial", FontWeight.BOLD, 20));
+        text.setFill(result.equals("Sa võitsid!") ? Color.BLACK : Color.BLACK);
+        root.getChildren().add(text);
+    }
+
 
     private void teeÜlekanne(String saaja, String nimi, double summa) {
         if (saaja.isEmpty() || nimi.isEmpty() || summa == 0.0 || String.valueOf(summa).isEmpty()) { // summa väärtuse kontroll vajab parandamist kui ta tühi on
@@ -335,7 +448,44 @@ public class InternetiPank2 extends Application {
         andmeDialoog.setTitle("Minu andmed");
         andmeDialoog.setHeaderText("Kasutajanimi: " + praeguneKasutaja+", Parool: " + praeguneParool);
 //        andmeDialoog.setContentText("Kasutajanimi: " + praeguneKasutaja+", Parool: " + praeguneParool); // Siin võiks lisada ka teisi kasutajaandmeid vastavalt vajadusele.
-        andmeDialoog.showAndWait();
+
+        ButtonType näitaTehinguidNupp = new ButtonType("Näita tehinguid", ButtonBar.ButtonData.OK_DONE);
+        andmeDialoog.getButtonTypes().add(näitaTehinguidNupp);
+
+        andmeDialoog.showAndWait().ifPresent(buttonType -> {
+            if (buttonType == näitaTehinguidNupp) {
+                näitaTehinguid(praeguneKasutaja);
+            }
+        });
+    }
+
+    private void näitaTehinguid(String praeguneKasutaja) {
+        Alert teavitus = new Alert(Alert.AlertType.INFORMATION);
+        teavitus.setTitle("Tehtud maksed");
+        teavitus.setHeaderText("Kasutaja: " + praeguneKasutaja);
+
+        StringBuilder tehinguteTekst = new StringBuilder();
+        for (String tehing : tehingud) {
+            tehinguteTekst.append(tehing).append("\n");
+        }
+        if (tehinguteTekst.length() == 0) {
+            tehinguteTekst.append("Puuduvad tehingud");
+        }
+        TextArea tekstiAla = new TextArea(tehinguteTekst.toString());
+        tekstiAla.setEditable(false);
+        tekstiAla.setWrapText(true);
+        tekstiAla.setMaxWidth(Double.MAX_VALUE);
+        tekstiAla.setMaxHeight(Double.MAX_VALUE);
+
+        GridPane.setVgrow(tekstiAla, Priority.ALWAYS);
+        GridPane.setHgrow(tekstiAla, Priority.ALWAYS);
+
+        GridPane teavitusRuudustik = new GridPane();
+        teavitusRuudustik.setMaxWidth(Double.MAX_VALUE);
+        teavitusRuudustik.add(tekstiAla, 0, 0);
+
+        teavitus.getDialogPane().setContent(teavitusRuudustik);
+        teavitus.showAndWait();
     }
 
 
