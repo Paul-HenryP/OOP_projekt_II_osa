@@ -4,7 +4,7 @@ OOP projekti II osa.
 
 Objektorienteeritud programmeerimise kursuse projekt.
 
-Oleme rühmatööna loonud programmi, mis kujutab endast lihtsa internetipanga lehe käitumist. Programmi kaudu saab teha tegevusi nagu konto loomine, makse tegemine, pangaloto mängimine. Programm loeb nende olemasolul käivitamisel varasemad andmed failidest tehingud_kasutajanimi.txt ja kontod.txt ja sulgemisel loeb mõlemasse faili uuenenud andmed.
+Oleme rühmatööna loonud programmi, mis kujutab endast lihtsa internetipanga lehe käitumist. Programmi kaudu saab teha tegevusi nagu konto loomine, makse tegemine, pangaloto mängimine. Programm loeb käivitamisel nende olemasolul varasemad andmed failidest tehingud_kasutajanimi.txt ja kontod.txt ja sulgemisel loeb mõlemasse faili uuenenud andmed.
 
 ![image](https://github.com/Paul-HenryP/OOP_projekt_II_osa/assets/104301931/81ac0f03-e6c5-4eec-88de-ab90c3144ed6)
 
