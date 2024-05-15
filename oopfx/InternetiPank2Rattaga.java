@@ -330,7 +330,7 @@ public class InternetiPank2Rattaga extends Application {
         Button spinButton = new Button("Keeruta ratast");
         spinButton.setLayoutX(180);
         spinButton.setLayoutY(350);
-        spinButton.setOnAction(event -> spinWheel(ratas, nool, root)); // ratta keerutamine
+        spinButton.setOnAction(event -> keerutaRatast(ratas, nool, root)); // ratta keerutamine
         root.getChildren().add(spinButton);
 
         // stseen
@@ -341,7 +341,7 @@ public class InternetiPank2Rattaga extends Application {
         primaryStage.show();
 
         // keeruta ratast
-        spinWheel(ratas, nool, root);
+        keerutaRatast(ratas, nool, root);
     }
 
     private Group LooRatas() {
@@ -364,7 +364,7 @@ public class InternetiPank2Rattaga extends Application {
         return ratas;
     }
 
-    private void spinWheel(Group ratas, Line nool, Group root) {
+    private void keerutaRatast(Group ratas, Line nool, Group root) {
         // Suvaline number
         Random random = new Random();
 
@@ -382,11 +382,11 @@ public class InternetiPank2Rattaga extends Application {
         RotateTransition rotateTransition = new RotateTransition(Duration.seconds(3), ratas);
         rotateTransition.setByAngle(randomAngle); // Suvalisele nurgale keeramine
         rotateTransition.setCycleCount(1); // Mitu korda keerleb
-        rotateTransition.setOnFinished(event -> checkResult(ratas, nool, root));
+        rotateTransition.setOnFinished(event -> kontrolliTulemust(ratas, nool, root));
         rotateTransition.play();
     }
 
-    private void checkResult(Group ratas, Line nool, Group root) {
+    private void kontrolliTulemust(Group ratas, Line nool, Group root) {
         // Arvuta sektor mis peaks olema
         double angle = ratas.getRotate() % 360;
         int numSectors = 8;
@@ -413,10 +413,10 @@ public class InternetiPank2Rattaga extends Application {
         root.getChildren().removeIf(node -> node instanceof Text);
 
         // Näita sõnumit
-        displayResult(result, (Group) ratas.getParent());
+        näitaTulemust(result, (Group) ratas.getParent());
     }
 
-    private void displayResult(String result, Group root) {
+    private void näitaTulemust(String result, Group root) {
         // Näita tulemust
         Text text = new Text(150, 350, result);
         text.setFont(Font.font("Arial", FontWeight.BOLD, 20));
